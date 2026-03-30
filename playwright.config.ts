@@ -7,12 +7,12 @@ export default defineConfig({
 
   use: {
     baseURL: 'https://qauto.forstudy.space',
-    headless: false,
+    headless: true,
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
   },
 
-  
+
   projects: [
     {
       name: 'chromium',
