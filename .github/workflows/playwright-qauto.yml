@@ -1,7 +1,12 @@
+name: Playwright Tests (qauto)  
+
+on:
+  pull_request:                 
+    branches: [main, master]    
+
 jobs:
   test:
     runs-on: ubuntu-latest
-    
     env:
       ENV_FILE: qauto
       BASE_URL: https://forstudy.space
