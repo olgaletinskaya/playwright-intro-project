@@ -1,84 +1,102 @@
-import { test, expect } from '@playwright/test'
+import { test, expect } from '@playwright/test';
+import { RegistrationPage } from '../pages/registration.page';
 
-// 🔹 helper
+// генерация email
 function generateRandomEmail() {
-  const chars = 'abcdefghijklmnopqrstuvwxyz1234567890'
-  let result = 'aqa-'
-
-  for (let i = 0; i < 8; i++) {
-    result += chars[Math.floor(Math.random() * chars.length)]
-  }
-
-  return result + '@test.com'
+  const random = Math.random().toString(36).substring(2, 8);
+  return `aqa-${random}@test.com`;
 }
 
-// 🔹 beforeEach
-test.beforeEach(async ({ page }) => {
-  await page.goto('https://guest:welcome2qauto@qauto.forstudy.space/')
+test.describe('Registration POM', () => {
 
-  await page.getByRole('button', { name: 'Sign In' }).click()
-  await page.getByRole('button', { name: 'Registration' }).click()
-})
+  test('Positive: successful registration', async ({ page }) => {
+    const regPage = new RegistrationPage(page);
 
-// ✅ позитивный тест
-test('Successful registration', async ({ page }) => {
-  const email = generateRandomEmail()
+    await regPage.open();
 
-  await page.locator('#signupName').fill('John')
-  await page.locator('#signupLastName').fill('Doe')
-  await page.locator('#signupEmail').fill(email)
-  await page.locator('#signupPassword').fill('Password1')
-  await page.locator('#signupRepeatPassword').fill('Password1')
+    await regPage.fillForm(
+      'Olga',
+      'Test',
+      generateRandomEmail(),
+      'Password123!',
+      'Password123!'
+    );
 
-  await page.getByRole('button', { name: 'Register' }).click()
+    await regPage.submit();
 
-  await expect(page).toHaveURL(/garage/)
-})
+    await expect(page).toHaveURL(/garage/);
+  });
 
-// ❌ негативные тесты
-test('Name is required', async ({ page }) => {
-  await page.locator('#signupName').click()
-  await page.locator('#signupLastName').click()
+  test('Negative: passwords do not match', async ({ page }) => {
+    const regPage = new RegistrationPage(page);
 
-  await expect(page.locator('#signupName')).toHaveClass(/is-invalid/)
-})
+    await regPage.open();
 
-test('Name too short', async ({ page }) => {
-  await page.locator('#signupName').fill('A')
-  await page.locator('#signupLastName').click()
+    await regPage.fillForm(
+      'Olga',
+      'Test',
+      generateRandomEmail(),
+      'Password123!',
+      'Password321!'
+    );
 
-  await expect(page.locator('#signupName')).toHaveClass(/is-invalid/)
-})
+    await regPage.submit();
 
-test('Invalid email', async ({ page }) => {
-  await page.locator('#signupEmail').fill('invalid-email')
-  await page.locator('#signupPassword').click()
+    await expect(regPage.repeatPasswordInput).toHaveClass(/is-invalid/);
+  });
 
-  await expect(page.locator('#signupEmail')).toHaveClass(/is-invalid/)
-})
+  test('Negative: name is required', async ({ page }) => {
+    const regPage = new RegistrationPage(page);
 
-test('Invalid password', async ({ page }) => {
-  await page.locator('#signupPassword').fill('123')
-  await page.locator('#signupRepeatPassword').click()
+    await regPage.open();
 
-  await expect(page.locator('#signupPassword')).toHaveClass(/is-invalid/)
-})
+    await regPage.nameInput.click();
+    await regPage.lastNameInput.click();
 
-test('Passwords do not match', async ({ page }) => {
-  await page.locator('#signupPassword').fill('Password1')
-  await page.locator('#signupRepeatPassword').fill('Password2')
+    await expect(regPage.nameInput).toHaveClass(/is-invalid/);
+  });
 
-  // 👇 ВАЖНО: триггерим валидацию
-  await page.locator('#signupName').click()
+  test('Negative: name too short', async ({ page }) => {
+    const regPage = new RegistrationPage(page);
 
-  await expect(page.locator('.invalid-feedback'))
-  .toContainText('Passwords do not match')
-})
+    await regPage.open();
 
-// ➕ дополнительный 
-test('Register button disabled', async ({ page }) => {
-  await page.locator('#signupName').fill('A')
+    await regPage.nameInput.fill('A');
+    await regPage.lastNameInput.click();
 
-  await expect(page.getByRole('button', { name: 'Register' }))
-    .toBeDisabled()
-})
+    await expect(regPage.nameInput).toHaveClass(/is-invalid/);
+  });
+
+  test('Negative: invalid email', async ({ page }) => {
+    const regPage = new RegistrationPage(page);
+
+    await regPage.open();
+
+    await regPage.emailInput.fill('invalid-email');
+    await regPage.passwordInput.click();
+
+    await expect(regPage.emailInput).toHaveClass(/is-invalid/);
+  });
+
+  test('Negative: invalid password', async ({ page }) => {
+    const regPage = new RegistrationPage(page);
+
+    await regPage.open();
+
+    await regPage.passwordInput.fill('123');
+    await regPage.repeatPasswordInput.click();
+
+    await expect(regPage.passwordInput).toHaveClass(/is-invalid/);
+  });
+
+  test('Negative: register button disabled', async ({ page }) => {
+    const regPage = new RegistrationPage(page);
+
+    await regPage.open();
+
+    await regPage.nameInput.fill('A');
+
+    await expect(regPage.registerButton).toBeDisabled();
+  });
+
+});
