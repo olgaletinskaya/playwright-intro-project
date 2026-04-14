@@ -27,3 +27,5 @@ jobs:
 
       - name: Run Playwright tests
         run: npx playwright test
+        env:
+    ENV_FILE: qauto

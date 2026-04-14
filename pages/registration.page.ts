@@ -26,6 +26,7 @@ export class RegistrationPage {
   async open() {
     await this.page.goto('/');
     await this.signUpButton.click();
+    await this.nameInput.waitFor();
   }
 
   async fillForm(name: string, lastName: string, email: string, password: string, repeatPassword: string) {
