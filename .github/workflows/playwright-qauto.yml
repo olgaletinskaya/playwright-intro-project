@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ENV_FILE: qauto
-      BASE_URL: https://forstudy.space
+      BASE_URL: https://qauto.forstudy.space
       HTTP_USERNAME: guest
       HTTP_PASSWORD: welcome2qauto
 
@@ -20,12 +20,10 @@ jobs:
           node-version: lts/*
 
       - name: Install dependencies    
-        run: npm install
+        run: npm ci
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests
         run: npx playwright test
-        env:
-    ENV_FILE: qauto
