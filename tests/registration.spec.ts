@@ -28,22 +28,24 @@ test.describe('Registration POM', () => {
   });
 
   test('Negative: passwords do not match', async ({ page }) => {
-    const regPage = new RegistrationPage(page);
+  const regPage = new RegistrationPage(page);
 
-    await regPage.open();
+  await regPage.open();
 
-    await regPage.fillForm(
-      'Olga',
-      'Test',
-      generateRandomEmail(),
-      'Password123!',
-      'Password321!'
-    );
+  await regPage.fillForm(
+    'Olga',
+    'Test',
+    generateRandomEmail(),
+    'Password123!',
+    'Password321!'
+  );
 
-    await regPage.submit();
+  // ❗ ТРИГГЕРИМ ВАЛИДАЦИЮ
+  await regPage.nameInput.click();
 
-    await expect(regPage.repeatPasswordInput).toHaveClass(/is-invalid/);
-  });
+  await expect(regPage.repeatPasswordInput).toHaveClass(/is-invalid/);
+  await expect(regPage.registerButton).toBeDisabled();
+});
 
   test('Negative: name is required', async ({ page }) => {
     const regPage = new RegistrationPage(page);
