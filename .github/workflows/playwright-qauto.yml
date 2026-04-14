@@ -1,0 +1,29 @@
+name: Playwright Tests (qauto)  
+
+on:
+  pull_request:                 
+    branches: [main, master]    
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      ENV_FILE: qauto
+      BASE_URL: https://qauto.forstudy.space
+      HTTP_USERNAME: guest
+      HTTP_PASSWORD: welcome2qauto
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Install dependencies    
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright tests
+        run: npx playwright test

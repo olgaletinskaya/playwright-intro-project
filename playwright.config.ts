@@ -1,4 +1,12 @@
-import { defineConfig } from '@playwright/test';
+import * as dotenv from 'dotenv'
+import { defineConfig } from '@playwright/test'
+
+// выбираем env файл
+const envFile = process.env.ENV_FILE
+  ? `.env.${process.env.ENV_FILE}`
+  : '.env'
+
+dotenv.config({ path: envFile })
 
 export default defineConfig({
   testDir: './tests',
@@ -6,10 +14,14 @@ export default defineConfig({
   timeout: 30000,
 
   use: {
-    baseURL: 'https://qauto.forstudy.space',
-    headless: false,
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    baseURL: process.env.BASE_URL,
+
+    httpCredentials: {
+      username: process.env.HTTP_USERNAME!,
+      password: process.env.HTTP_PASSWORD!,
+    },
+
+    headless: true
   },
 
   projects: [
