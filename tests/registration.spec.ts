@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { RegistrationPage } from '../pages/registration.page';
 
+
 // генерация email
 function generateRandomEmail() {
   const random = Math.random().toString(36).substring(2, 8);

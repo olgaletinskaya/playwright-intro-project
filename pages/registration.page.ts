@@ -24,10 +24,15 @@ export class RegistrationPage {
   }
 
   async open() {
-    await this.page.goto('/');
-    await this.signUpButton.click();
-    await this.nameInput.waitFor();
-  }
+  await this.page.goto('/');
+
+  const signUpBtn = this.page.getByRole('button', { name: 'Sign up' });
+
+  await signUpBtn.waitFor({ state: 'visible', timeout: 10000 });
+  await signUpBtn.click();
+
+  await this.nameInput.waitFor();
+}
 
   async fillForm(name: string, lastName: string, email: string, password: string, repeatPassword: string) {
     await this.nameInput.fill(name);

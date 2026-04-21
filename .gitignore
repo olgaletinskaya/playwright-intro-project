@@ -5,3 +5,5 @@ test-results
 .env
 .env.qauto
 .env.qauto2
+
+storageState.json
