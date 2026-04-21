@@ -1,21 +1,19 @@
 name: Playwright Tests qauto2
 
 on:
-  push:
-    branches: [ main, feature/fixtures-storage-state ]
   pull_request:
     branches: [ main, master ]
 
 jobs:
   test:
     runs-on: ubuntu-latest
-        env:
+    env:
       ENV_FILE: qauto2
       BASE_URL: https://forstudy.space
       HTTP_USERNAME: guest
       HTTP_PASSWORD: welcome2qauto
-      USER_EMAIL: abbiesun806test+1@gmail.com
-      USER_PASSWORD: Password123!
+      EMAIL: abbiesun806test+1@gmail.com
+      PASSWORD: Password123!
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
