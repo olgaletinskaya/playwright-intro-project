@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ENV_FILE: qauto2
-      BASE_URL: https://qauto2.forstudy.space
+      BASE_URL: https://forstudy.space
       HTTP_USERNAME: guest
       HTTP_PASSWORD: welcome2qauto
       EMAIL: abbiesun806test+1@gmail.com
