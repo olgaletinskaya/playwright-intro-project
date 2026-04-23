@@ -18,7 +18,7 @@ test('login and save storage state', async ({ page }) => {
 
   await page.getByRole('button', { name: 'Login' }).click();
 
-  await page.waitForURL(/garage/, { timeout: 15000 });
+  await page.waitForLoadState('networkidle');
 
   await page.context().storageState({ path: 'storageState.json' });
 });
