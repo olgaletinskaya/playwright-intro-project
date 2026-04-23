@@ -24,26 +24,13 @@ export default defineConfig({
     name: 'setup',
     testMatch: /.*\.setup\.ts/,
   },
-
-  // 🔹 ТЕСТЫ С ЛОГИНОМ
   {
-    name: 'auth',
-    testMatch: /.*garage\.spec\.ts/,
+    name: 'chromium',
     use: {
       browserName: 'chromium',
       storageState: 'storageState.json',
     },
     dependencies: ['setup'],
-  },
-
-  // 🔹 ТЕСТЫ БЕЗ ЛОГИНА (регистрация)
-  {
-    name: 'no-auth',
-    testMatch: /.*registration\.spec\.ts/,
-    use: {
-      browserName: 'chromium',
-      storageState: undefined,
-    },
   },
 ],
 });

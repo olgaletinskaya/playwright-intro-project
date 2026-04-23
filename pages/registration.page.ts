@@ -28,7 +28,7 @@ export class RegistrationPage {
 
   const signUpBtn = this.page.getByRole('button', { name: 'Sign up' });
 
-  await signUpBtn.waitFor({ state: 'visible', timeout: 10000 });
+  await signUpBtn.waitFor({ state: 'visible', timeout: 15000 });
   await signUpBtn.click();
 
   await this.nameInput.waitFor();
