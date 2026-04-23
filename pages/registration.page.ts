@@ -26,6 +26,10 @@ export class RegistrationPage {
   async open() {
   await this.page.goto('/');
 
+  // 🔥 если пользователь залогинен — чистим сессию
+  await this.page.context().clearCookies();
+  await this.page.reload();
+
   const signUpBtn = this.page.getByRole('button', { name: 'Sign up' });
 
   await signUpBtn.waitFor({ state: 'visible', timeout: 15000 });
