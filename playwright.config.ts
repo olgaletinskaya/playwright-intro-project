@@ -12,25 +12,21 @@ export default defineConfig({
 
   use: {
     baseURL: process.env.BASE_URL,
-    httpCredentials: {
-      username: process.env.HTTP_USERNAME!,
-      password: process.env.HTTP_PASSWORD!,
-    },
     headless: true,
   },
 
   projects: [
-  {
-    name: 'setup',
-    testMatch: /.*\.setup\.ts/,
-  },
-  {
-    name: 'chromium',
-    use: {
-      browserName: 'chromium',
-      storageState: 'storageState.json',
+    {
+      name: 'setup',
+      testMatch: /.*\.setup\.ts/,
     },
-    dependencies: ['setup'],
-  },
-],
+    {
+      name: 'chromium',
+      use: {
+        browserName: 'chromium',
+        storageState: 'storageState.json',
+      },
+      dependencies: ['setup'],
+    },
+  ],
 });
