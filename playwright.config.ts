@@ -5,7 +5,7 @@ const envFile = process.env.ENV_FILE
   ? `.env.${process.env.ENV_FILE}`
   : '.env';
 
-dotenv.config({ path: envFile });
+dotenv.config({ path: envFile, override: false });
 
 export default defineConfig({
   testDir: './tests',

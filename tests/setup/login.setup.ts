@@ -1,12 +1,10 @@
 import { test } from '@playwright/test';
 
 test('login and save storage state', async ({ page }) => {
-  const email = process.env.EMAIL!;
-  const password = process.env.PASSWORD!;
 
-  if (!email || !password) {
-    throw new Error('EMAIL or PASSWORD is missing');
-  }
+  // ✅ ВОТ СЮДА добавляем fallback
+  const email = process.env.EMAIL || 'abbiesun806test+1@gmail.com';
+  const password = process.env.PASSWORD || 'Password123!';
 
   console.log('EMAIL:', email);
   console.log('PASSWORD:', password ? '***' : 'EMPTY');

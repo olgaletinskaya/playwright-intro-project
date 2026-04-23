@@ -1,8 +1,8 @@
-name: Playwright Tests qauto2
+name: Playwright Tests (qauto2)
 
 on:
   pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
 
 jobs:
   test:
@@ -12,6 +12,7 @@ jobs:
    BASE_URL: https://guest:welcome2qauto@qauto2.forstudy.space
    EMAIL: abbiesun806test+1@gmail.com
    PASSWORD: Password123!
+    
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

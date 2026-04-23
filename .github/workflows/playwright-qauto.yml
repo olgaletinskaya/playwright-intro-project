@@ -7,11 +7,11 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    env:
-      ENV_FILE: qauto
-      BASE_URL: https://qauto.forstudy.space
-      HTTP_USERNAME: guest
-      HTTP_PASSWORD: welcome2qauto
+  env:
+   ENV_FILE: qauto
+   BASE_URL: https://guest:welcome2qauto@qauto.forstudy.space
+   EMAIL: abbiesun806test+1@gmail.com
+   PASSWORD: Password123!
 
     steps:
       - uses: actions/checkout@v4
