@@ -10,7 +10,9 @@ jobs:
 
     env:
       ENV_FILE: qauto
-      BASE_URL: https://guest:welcome2qauto@qauto.forstudy.space
+      BASE_URL: https://qauto.forstudy.space
+      HTTP_USERNAME: guest
+      HTTP_PASSWORD: welcome2qauto
       EMAIL: abbiesun806test+1@gmail.com
       PASSWORD: Password123!
 
