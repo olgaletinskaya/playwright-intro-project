@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { RegistrationPage } from '../pages/registration.page';
 
+test.use({ storageState: undefined });
 
 // генерация email
 function generateRandomEmail() {

@@ -11,9 +11,15 @@ export default defineConfig({
   testDir: './tests',
 
   use: {
-    baseURL: process.env.BASE_URL,
-    headless: true,
+  baseURL: process.env.BASE_URL,
+
+  httpCredentials: {
+    username: process.env.HTTP_USERNAME!,
+    password: process.env.HTTP_PASSWORD!,
   },
+
+  headless: true,
+},
 
   projects: [
     {
