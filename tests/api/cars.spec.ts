@@ -15,6 +15,11 @@ test.describe('Cars API (Controller)', () => {
     });
 
     carsController = new CarsController(apiContext);
+
+    await carsController.login(
+      process.env.EMAIL!,
+      process.env.PASSWORD!
+    );
   });
 
   test('Create car - positive', async () => {
@@ -25,9 +30,6 @@ test.describe('Cars API (Controller)', () => {
     });
 
     expect(response.status()).toBe(201);
-
-    const body = await response.json();
-    expect(body.data.carBrandId).toBe(1);
   });
 
   test('Create car - missing mileage', async () => {

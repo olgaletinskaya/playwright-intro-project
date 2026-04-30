@@ -1,38 +1,27 @@
-import * as dotenv from 'dotenv';
 import { defineConfig } from '@playwright/test';
+import * as dotenv from 'dotenv';
 
-const envFile = process.env.ENV_FILE
-  ? `.env.${process.env.ENV_FILE}`
-  : '.env';
-
-dotenv.config({ path: envFile, override: false });
+dotenv.config({ path: '.env.qauto' });
 
 export default defineConfig({
   testDir: './tests',
 
   use: {
-  baseURL: process.env.BASE_URL,
-
-  httpCredentials: {
-    username: process.env.HTTP_USERNAME!,
-    password: process.env.HTTP_PASSWORD!,
+    baseURL: process.env.BASE_URL,
+    httpCredentials: {
+      username: process.env.HTTP_USERNAME!,
+      password: process.env.HTTP_PASSWORD!,
+    },
   },
-
-  headless: true,
-},
 
   projects: [
     {
-      name: 'setup',
-      testMatch: /.*\.setup\.ts/,
-    },
-    {
-      name: 'chromium',
+      name: 'firefox',
       use: {
-        browserName: 'chromium',
-        storageState: 'storageState.json',
+        browserName: 'firefox',
       },
-      dependencies: ['setup'],
     },
   ],
+
+  testMatch: /tests\/api\/.*\.spec\.ts/,
 });

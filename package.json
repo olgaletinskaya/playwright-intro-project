@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:qauto": "cross-env ENV_FILE=qauto playwright test",
-    "test:qauto2": "cross-env ENV_FILE=qauto2 playwright test"
-  },
+  "test:qauto": "cross-env ENV_FILE=qauto playwright test",
+  "test:qauto2": "cross-env ENV_FILE=qauto2 playwright test",
+  "test:firefox": "playwright test --project=firefox" 
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/olgaletinskaya/playwright-intro-project.git"
@@ -19,7 +20,7 @@
   },
   "homepage": "https://github.com/olgaletinskaya/playwright-intro-project#readme",
   "devDependencies": {
-    "@playwright/test": "^1.58.2",
+    "@playwright/test": "^1.40.0",
     "@types/node": "^25.5.0",
     "cross-env": "^10.1.0"
   },

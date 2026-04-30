@@ -1,13 +1,28 @@
-import { APIRequestContext, expect } from '@playwright/test';
+import { APIRequestContext } from '@playwright/test';
 
 export class CarsController {
-  constructor(private request: APIRequestContext) {}
+  private request: APIRequestContext;
+  private token: string = '';
 
-  async createCar(body: any) {
-    const response = await this.request.post('/api/cars', {
-      data: body,
+  constructor(request: APIRequestContext) {
+    this.request = request;
+  }
+
+  async login(email: string, password: string) {
+    const response = await this.request.post('/api/auth/signin', {
+      data: { email, password },
     });
 
-    return response;
+    const body = await response.json();
+    this.token = body.data.accessToken;
+  }
+
+  async createCar(data: any) {
+    return this.request.post('/api/cars', {
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+      data,
+    });
   }
 }
