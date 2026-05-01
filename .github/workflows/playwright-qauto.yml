@@ -1,4 +1,4 @@
-name: Playwright Tests (qauto)
+name: Playwright Docker Firefox Tests
 
 on:
   pull_request:
@@ -9,7 +9,6 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      ENV_FILE: qauto
       BASE_URL: https://qauto.forstudy.space
       HTTP_USERNAME: guest
       HTTP_PASSWORD: welcome2qauto
@@ -19,15 +18,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
+      - name: Build Docker image
+        run: docker build -t playwright-firefox .
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-
-      - name: Run Playwright tests
-        run: npx playwright test
+      - name: Run tests
+  run: |
+    docker run --rm \
+      -e BASE_URL=$BASE_URL \
+      -e HTTP_USERNAME=$HTTP_USERNAME \
+      -e HTTP_PASSWORD=$HTTP_PASSWORD \
+      -e EMAIL=$EMAIL \
+      -e PASSWORD=$PASSWORD \
+      playwright-firefox
