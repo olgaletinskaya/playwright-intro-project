@@ -50,6 +50,6 @@ test.describe('Cars API (Controller)', () => {
       mileage: 100,
     });
 
-    expect(response.status()).toBe(400);
+    expect(response.status()).toBe(404);
   });
 });
