@@ -24,12 +24,14 @@ test.describe('Cars API (Controller)', () => {
 
   test('Create car - positive', async () => {
     const response = await carsController.createCar({
-      carBrandId: 1,
-      carModelId: 1,
-      mileage: 100,
-    });
+    carBrandId: 1,
+    carModelId: 1,
+    mileage: Math.floor(Math.random() * 1000) + 100, 
+});
 
-    expect(response.status()).toBe(201);
+   const body = await response.json();
+   console.log('Error message from server:', body);
+   expect(response.status()).toBe(201);
   });
 
   test('Create car - missing mileage', async () => {
