@@ -1,0 +1,25 @@
+name: Playwright Tests (qauto2)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    env:   # ✅ ВНУТРИ job
+      ENV_FILE: qauto2
+      BASE_URL: https://guest:welcome2qauto@qauto2.forstudy.space
+      EMAIL: abbiesun806test+1@gmail.com
+      PASSWORD: Password123!
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm ci
+      - run: npx playwright install --with-deps
+      - run: npx playwright test
