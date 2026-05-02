@@ -7,24 +7,21 @@ on:
 jobs:
   playwright:
     runs-on: ubuntu-latest
-env:
-  BASE_URL: https://qauto.forstudy.space
-  HTTP_USERNAME: guest
-  HTTP_PASSWORD: welcome2qauto
-  EMAIL: abbiesun806test+1@gmail.com
-  PASSWORD: Password123!
-  
     container:
       image: mcr.microsoft.com/playwright:v1.39.0-jammy
+    
+    env:
+      BASE_URL: https://qauto.forstudy.space
+      HTTP_USERNAME: guest
+      HTTP_PASSWORD: welcome2qauto
+      EMAIL: abbiesun806test+1@gmail.com
+      PASSWORD: Password123!
 
     steps:
       - uses: actions/checkout@v4
 
       - name: Install dependencies
         run: npm ci
-
-      - name: Install browsers
-        run: npx playwright install
 
       - name: Run tests
         run: npx playwright test
