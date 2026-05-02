@@ -1,0 +1,31 @@
+name: Playwright Tests (qauto)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    env:
+      BASE_URL: https://qauto.forstudy.space
+      HTTP_USERNAME: guest
+      HTTP_PASSWORD: welcome2qauto
+      EMAIL: abbiesun806test+1@gmail.com
+      PASSWORD: Password123!
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t playwright-firefox .
+
+      - name: Run tests
+        run: |
+          docker run --rm \
+            -e BASE_URL=$BASE_URL \
+            -e HTTP_USERNAME=$HTTP_USERNAME \
+            -e HTTP_PASSWORD=$HTTP_PASSWORD \
+            -e EMAIL=$EMAIL \
+            -e PASSWORD=$PASSWORD \
+            playwright-firefox

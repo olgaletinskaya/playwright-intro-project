@@ -1,21 +1,27 @@
 import { defineConfig } from '@playwright/test';
+import * as dotenv from 'dotenv';
+
+dotenv.config({ path: '.env.qauto' });
 
 export default defineConfig({
   testDir: './tests',
 
-  timeout: 30000,
-
   use: {
-    baseURL: 'https://qauto.forstudy.space',
-    headless: false,
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    baseURL: process.env.BASE_URL,
+    httpCredentials: {
+      username: process.env.HTTP_USERNAME!,
+      password: process.env.HTTP_PASSWORD!,
+    },
   },
 
   projects: [
     {
-      name: 'chromium',
-      use: { browserName: 'chromium' },
+      name: 'firefox',
+      use: {
+        browserName: 'firefox',
+      },
     },
   ],
+
+  testMatch: /tests\/api\/.*\.spec\.ts/,
 });
