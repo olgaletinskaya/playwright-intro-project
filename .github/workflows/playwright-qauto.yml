@@ -1,4 +1,4 @@
-name: Playwright Docker Firefox Tests
+name: Playwright Tests (qauto)
 
 on:
   pull_request:
